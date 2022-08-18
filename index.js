@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/notification', (req, res) => {
+    console.log(req.headers['x-auth']);
 	console.log(req.body);
 	res.send('OKKK');
 });
