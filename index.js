@@ -21,25 +21,26 @@ app.get('/', (req, res) => {
 
 app.post('/notification', (req, res) => {
 	if (req.headers['x-auth'] === process.env.X_AUTH) {
-		// console.log(req.body);
+		console.log(req.body);
 		io.sockets.emit('notification:recieved', req.body);
 		res.json({
 			status: 200,
 			message: 'Notification Processed',
 		});
 	} else {
+		console.log('Auth header mismatch!');
 		res.json({
 			status: 401,
 			message: 'Invalid Header',
 		});
 	}
 });
-// io.on('connection', (socket) => {
-// 	console.log('User Connected');
-// 	socket.on('disconnect', () => {
-// 		console.log('User Disconnected!');
-// 	});
-// });
+io.on('connection', (socket) => {
+	console.log('User Connected');
+	socket.on('disconnect', () => {
+		console.log('User Disconnected!');
+	});
+});
 
 server.listen(port, () => {
 	console.log('listening on :', port);
