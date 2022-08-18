@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Missing Phone? No Worries!</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+			integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+			crossorigin="anonymous"
+		/>
+		<style>
+			body {
+				background: #a8c0ff; /* fallback for old browsers */
+				background: -webkit-linear-gradient(
+					to right,
+					#3f2b96,
+					#a8c0ff
+				); /* Chrome 10-25, Safari 5.1-6 */
+				background: linear-gradient(
+					to right,
+					#3f2b96,
+					#a8c0ff
+				); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h2 class="my-3 text-white">
+				Missing your phone? Here are the notifications!
+			</h2>
+			<div class="jumbotron p-3 bg-white">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<th>Time</th>
+							<th>Application</th>
+							<th>Title</th>
+							<th>Message</th>
+						</thead>
+                        <tbody id="table-body"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+			integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+			crossorigin="anonymous"
+		></script>
+		<script src="./index.js"></script>
+	</body>
+</html>

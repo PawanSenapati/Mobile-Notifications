@@ -1,23 +1,46 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
 const port = process.env.PORT || 3000;
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cors());
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-	res.send('OK');
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 app.post('/notification', (req, res) => {
-    console.log(req.headers['x-auth']);
-	console.log(req.body);
-	res.send('OKKK');
+	if (req.headers['x-auth'] === process.env.X_AUTH) {
+		// console.log(req.body);
+		io.sockets.emit('notification:recieved', req.body);
+		res.json({
+			status: 200,
+			message: 'Notification Processed',
+		});
+	} else {
+		res.json({
+			status: 401,
+			message: 'Invalid Header',
+		});
+	}
 });
+// io.on('connection', (socket) => {
+// 	console.log('User Connected');
+// 	socket.on('disconnect', () => {
+// 		console.log('User Disconnected!');
+// 	});
+// });
 
-app.listen(port, () => {
-	console.log(`Server is listening on port: ${port}`);
+server.listen(port, () => {
+	console.log('listening on :', port);
 });
