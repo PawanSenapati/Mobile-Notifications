@@ -35,6 +35,22 @@ app.post('/notification', (req, res) => {
 		});
 	}
 });
+
+app.post('/auth', (req, res) => {
+	console.log(req.body);
+	if (req.body.password === process.env.PASSWORD) {
+		res.json({
+			status: 200,
+			isPasswordCorrect: true,
+		});
+	} else {
+		res.json({
+			status: 401,
+			isPasswordCorrect: false,
+		});
+	}
+});
+
 io.on('connection', (socket) => {
 	console.log('User Connected');
 	socket.on('disconnect', () => {
