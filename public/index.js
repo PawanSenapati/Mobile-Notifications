@@ -23,8 +23,52 @@ function initailizeSocket() {
 	socket.on('notification:recieved', (notificationData) => {
 		notificationArr.unshift(notificationData);
 		updateTable();
+		if (
+			(notificationData.appName === 'Phone' &&
+				notificationData.message === 'Incoming call') ||
+			['Messages', 'WhatsApp'].includes(notificationData.appName)
+		) {
+			notify(notificationData);
+		}
 	});
 	swal('Server Connected!', 'Your notifications will appear here.', 'success');
+}
+
+function notify(notification) {
+	let permission = Notification.permission;
+	if (permission === 'granted') {
+		showNotification(notification);
+	} else if (permission === 'default') {
+		requestAndShowPermission(notification);
+	} else {
+		console.error('Notification permission not granted');
+	}
+}
+
+function showNotification(notification) {
+	console.log('showNotification');
+	if (document.visibilityState === 'visible') {
+		console.log('site visible');
+		return;
+	}
+	const title = notification.appName + ': ' + notification.title;
+	const icon = window.location.origin + '/assets/phone.png';
+	const body = notification.message;
+	const notificationPopup = new Notification(title, { body, icon });
+	new Audio('./assets/cool_notification.mp3').play();
+	notificationPopup.onclick = () => {
+		notificationPopup.close();
+		window.parent.focus();
+	};
+}
+function requestAndShowPermission(notification) {
+	console.log('requestPermission');
+	Notification.requestPermission(function (permission) {
+		console.log(permission);
+		if (permission === 'granted') {
+			showNotification(notification);
+		}
+	});
 }
 
 swal({
