@@ -12,8 +12,8 @@
 			crossorigin="anonymous"
 		/>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<link rel="icon" type="image/x-icon" href="./assets/phone.png">
-		<meta name="theme-color" content="#3f2b96">
+		<link rel="icon" type="image/x-icon" href="./assets/phone.png" />
+		<meta name="theme-color" content="#3f2b96" />
 		<style>
 			body {
 				background: #a8c0ff; /* fallback for old browsers */
@@ -36,7 +36,7 @@
 				Missing your phone? Here are the notifications!
 			</h2>
 			<div class="jumbotron p-3 bg-white">
-				<div class="table-responsive">
+				<div class="table-responsive" style="max-height: 75vh; overflow-y: auto">
 					<table class="table table-striped">
 						<thead>
 							<th>Time</th>
@@ -44,7 +44,7 @@
 							<th>Title</th>
 							<th>Message</th>
 						</thead>
-                        <tbody id="table-body"></tbody>
+						<tbody id="table-body"></tbody>
 					</table>
 				</div>
 			</div>
